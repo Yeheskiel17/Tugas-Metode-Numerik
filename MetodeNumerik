@@ -1,0 +1,57 @@
+import tugasmetodenumerik as np
+
+# Fungsi yang akan dicari:
+def f(x):
+    return x + np.exp(x)
+
+# Metode tabel:
+def metode_tabel(a, b, n):
+    x_values = np(a, b, n)
+    for x in x_values:
+        print("fx = {x:.4f}, f(x) = {f(x):.6f}")
+
+# Metode Biseksi
+def metode_biseksi(f, a, b,tol):
+    if f(a) * f(b) > 0:
+      print("Eror: f(a) dan f(b) harus berbeda tanda.")
+      return None
+    while (b - a) / 2.0 > tol:
+        midpoint = (a + b) / 2.0
+        if f(midpoint) == 0:
+            return midpoint #Solusi tepatnya
+        elif f(a) * f(midpoint) < 0:
+            b = midpoint
+        else:
+            a = midpoint
+    return (a + b) / 2.0
+
+# Metode regulafalsi
+def metode_regulafalsi (f, a, b, tol):
+    if f(a) * f(b) > 0:
+      print("Eror: f(a) dan f(b) harus berbeda tanda.")
+      return None
+    c = a
+    while abs(f(c)) > tol:
+        c = b - (f(b) * (b - a)) / (f(b) - f(a))
+        if f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+    return c
+
+# Parameter awal
+a = -1
+b = 0
+n = 10
+tol = 1e-6
+
+# Hasil dengan metode tabel
+print("Metode Tabel: ", metode_tabel(a, b, n))
+
+#Hasil dengan metode biseksi
+print("Metode Biseksi: ", akar_biseksi = metode_biseksi(f, a, b, tol))
+print("Akar dengan metode biseksi:  {akar_biseksi:.6f}")
+
+# Hasil dengan metode regulafalsi
+print("Metode Regulafalsi: ", akar_regulafalsi = metode_regulafalsi(f, a, b, tol))
+print ("Akar dengan metode Regulafalsi: {akar_regulafalsi:.6f}")
